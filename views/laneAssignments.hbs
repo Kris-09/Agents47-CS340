@@ -1,0 +1,97 @@
+<h1>LaneAssignments</h1>
+<p>Browse existing lane assignments and create new ones.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Lane Assignment ID</th>
+            <th>Lane Week</th>
+            <th>Lane Date</th>
+            <th>Lane Number</th>
+            <th>Team</th>
+            <th></th> <!-- empty header for delete -->
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each laneAssignments}}
+        <tr>
+            <td>{{this.laneAssignmentID}}</td>
+            <td>{{this.laneWeek}}</td>
+            <td>{{this.laneDate}}</td>
+            <td>{{this.laneNumber}}</td>
+            <td>{{this.teamName}}</td>
+
+            <td>
+                <form method="POST" action="/deleteLaneAssignment">
+                    <input type="hidden" name="laneAssignmentID" value="{{this.laneAssignmentID}}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+{{! CREATE form }}
+<h2>Create Lane Assignment</h2>
+
+<form method="POST" action="/createLaneAssignment">
+    
+    <label>Lane Week:</label>
+    <input type="number" name="laneWeek" required>
+
+    <label>Lane Date:</label>
+    <input type="date" name="laneDate" required>
+
+    <label>Lane Number:</label>
+    <input type="number" name="laneNumber" required>
+
+    <label>Team ID:</label>
+    <select name="teamID" required>
+    {{#each teams}}
+    <option value="{{this.teamID}}">
+    {{this.teamID}} - {{this.teamName}}
+    </option>
+    {{/each}}
+    </select>
+
+    <button type="submit">Create</button>
+
+</form>
+
+<h2>Update Lane Assignment</h2>
+
+<form method="POST" action="/updateLaneAssignment">
+
+    <label>Select Assignment:</label>
+    <select name="laneAssignmentID" required>
+        {{#each laneAssignments}}
+            <option value="{{this.laneAssignmentID}}">
+                ID {{this.laneAssignmentID}} - Week {{this.laneWeek}}
+            </option>
+        {{/each}}
+    </select>
+
+    <label>Lane Week:</label>
+    <input type="number" name="laneWeek" required>
+
+    <label>Lane Date:</label>
+    <input type="date" name="laneDate" required>
+
+    <label>Lane Number:</label>
+    <input type="number" name="laneNumber" required>
+
+    <label>Team ID:</label>
+    <select name="teamID" required>
+    {{#each teams}}
+    <option value="{{this.teamID}}">
+    {{this.teamID}} - {{this.teamName}}
+    </option>
+    {{/each}}
+    </select>
+
+    <button type="submit">Update</button>
+
+</form>

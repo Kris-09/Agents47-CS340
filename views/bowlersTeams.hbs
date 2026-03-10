@@ -1,0 +1,82 @@
+<h1>BowlersTeams</h1>
+<p>Manage bowler-to-team assignments.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Bowler</th>
+            <th>Team</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each bowlersTeams}}
+        <tr>
+            <td>{{this.bowlerName}}</td>
+            <td>{{this.teamName}}</td>
+            <td>{{this.startDate}}</td>
+            <td>{{this.endDate}}</td>
+            <td>
+                <form method="POST" action="/deleteBowlersTeams">
+                    <input type="hidden" name="bowlerID" value="{{this.bowlerID}}">
+                    <input type="hidden" name="teamID" value="{{this.teamID}}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>Create Bowler-Team Assignment</h2>
+
+<form method="POST" action="/createBowlersTeams">
+
+    <label>Bowler ID:</label>
+    <input type="number" name="bowlerID">
+
+    <label>Team ID:</label>
+    <input type="number" name="teamID">
+
+    <label>Start Date:</label>
+    <input type="date" name="startDate" required>
+
+    <label>End Date:</label>
+    <input type="date" name="endDate" required>
+
+    <button type="submit">Create</button>
+
+</form>
+
+<h2>Update Bowler-Team Assignment</h2>
+
+<form method="POST" action="/updateBowlersTeams">
+
+    <label>Select Assignment:</label>
+    <select name="originalBowlerID" required>
+        {{#each bowlersTeams}}
+            <option value="{{this.bowlerID}}-{{this.teamID}}">
+                Bowler {{this.bowlerID}} - Team {{this.teamID}}
+            </option>
+        {{/each}}
+    </select>
+
+    <label>New Bowler ID:</label>
+    <input type="number" name="bowlerID" required>
+
+    <label>New Team ID:</label>
+    <input type="number" name="teamID" required>
+
+    <label>New Start Date:</label>
+    <input type="date" name="startDate" required>
+
+    <label>New End Date:</label>
+    <input type="date" name="endDate" required>
+
+    <button type="submit">Update</button>
+
+</form>
+

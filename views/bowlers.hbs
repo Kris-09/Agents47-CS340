@@ -1,0 +1,99 @@
+<h1>Bowlers</h1>
+<p>View and edit existing bowlers' information, and create new ones.</p>
+
+{{! READ table }}
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            <th>Bowler ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Average</th>
+            <th>Handicap</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each bowlers}}
+        <tr>
+            <td>{{this.bowlerID}}</td>
+            <td>{{this.firstName}}</td>
+            <td>{{this.lastName}}</td>
+            <td>{{this.average}}</td>
+            <td>{{this.handicap}}</td>
+            
+            {{! DELETE form }}
+            <form method="POST" action="/deleteBowler">
+                <input type='hidden' name='bowlerID' value='{{this.bowlerID}}' />
+                <td>
+                    <button type='submit'>Delete</button>
+                </td>
+            </form>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{! CREATE form }}
+<h2>Create a Bowler</h2>
+<form class="cuForm"
+      id="create_bowler_form"
+      method="POST"
+      action="/createBowler">
+
+    <label for="create_bowler_firstname">First Name:</label>
+    <input type="text"
+           name="create_bowler_firstname"
+           id="create_bowler_firstname"
+           required>
+
+    <label for="create_bowler_lastname">Last Name:</label>
+    <input type="text"
+           name="create_bowler_lastname"
+           id="create_bowler_lastname">
+
+    <label for="create_bowler_average">Average:</label>
+    <input type="number"
+           name="create_bowler_average"
+           id="create_bowler_average">
+
+    <label for="create_bowler_handicap">Handicap:</label>
+    <input type="number"
+           name="create_bowler_handicap"
+           id="create_bowler_handicap">
+
+    <button type="submit">Create</button>
+</form>
+
+<h2>Update a Bowler</h2>
+
+<form method="POST" action="/updateBowler">
+
+    <label>Select Bowler:</label>
+    <select name="bowlerID" required>
+        {{#each bowlers}}
+            <option value="{{this.bowlerID}}">
+                {{this.bowlerID}} - {{this.firstName}} {{this.lastName}}
+            </option>
+        {{/each}}
+    </select>
+
+    <label>First Name:</label>
+    <input type="text" name="firstName" required>
+
+    <label>Last Name:</label>
+    <input type="text" name="lastName">
+
+    <label>Average:</label>
+    <input type="number" name="average">
+
+    <label>Handicap:</label>
+    <input type="number" name="handicap">
+
+    <button type="submit">Update</button>
+
+</form>
+

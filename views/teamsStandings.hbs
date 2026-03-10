@@ -1,0 +1,100 @@
+<h1>TeamsStandings</h1>
+<p>View team standings and manage weekly rankings.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Standing ID</th>
+            <th>Standing Week</th>
+            <th>Rank</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Team</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each teamsStandings}}
+        <tr>
+            <td>{{this.standingID}}</td>
+            <td>{{this.standingWeek}}</td>
+            <td>{{this.rank}}</td>
+            <td>{{this.wins}}</td>
+            <td>{{this.losses}}</td>
+            <td>{{this.teamName}}</td>
+            <td>
+                <form method="POST" action="/deleteTeamStanding">
+                    <input type="hidden" name="standingID" value="{{this.standingID}}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>Create Team Standing</h2>
+
+<form method="POST" action="/createTeamStanding">
+    <label>Standing Week:</label>
+    <input type="number" name="standingWeek" required>
+
+    <label>Rank:</label>
+    <input type="number" name="rank" required>
+
+    <label>Wins:</label>
+    <input type="number" name="wins" required>
+
+    <label>Losses:</label>
+    <input type="number" name="losses" required>
+
+    <label>Team ID:</label>
+    <select name="teamID" required>
+    {{#each teams}}
+    <option value="{{this.teamID}}">
+    {{this.teamID}} - {{this.teamName}}
+    </option>
+    {{/each}}
+    </select>
+
+    <button type="submit">Create</button>
+</form>
+
+<h2>Update Team Standing</h2>
+
+<form method="POST" action="/updateTeamStanding">
+
+    <label>Select Standing:</label>
+    <select name="standingID" required>
+        {{#each teamsStandings}}
+            <option value="{{this.standingID}}">
+                ID {{this.standingID}} - Week {{this.standingWeek}}
+            </option>
+        {{/each}}
+    </select>
+
+    <label>Standing Week:</label>
+    <input type="number" name="standingWeek" required>
+
+    <label>Rank:</label>
+    <input type="number" name="rank" required>
+
+    <label>Wins:</label>
+    <input type="number" name="wins" required>
+
+    <label>Losses:</label>
+    <input type="number" name="losses" required>
+
+    <label>Team ID:</label>
+    <select name="teamID" required>
+    {{#each teams}}
+    <option value="{{this.teamID}}">
+    {{this.teamID}} - {{this.teamName}}
+    </option>
+    {{/each}}
+    </select>
+
+    <button type="submit">Update</button>
+
+</form>

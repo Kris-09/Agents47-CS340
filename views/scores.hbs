@@ -1,0 +1,121 @@
+<h1>Scores</h1>
+<p>Browse existing scores and record new game results.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Scores ID</th>
+            <th>Game 1</th>
+            <th>Game 2</th>
+            <th>Game 3</th>
+            <th>Scores Date</th>
+            <th>Bowler</th>
+            <th>Team</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each scores}}
+        <tr>
+            <td>{{this.scoresID}}</td>
+            <td>{{this.game1}}</td>
+            <td>{{this.game2}}</td>
+            <td>{{this.game3}}</td>
+            <td>{{this.scoresDate}}</td>
+            <td>{{this.bowlerName}}</td>
+            <td>{{this.teamName}}</td>
+
+            <td>
+                <form method="POST" action="/deleteScore">
+                    <input type="hidden" name="scoresID" value="{{this.scoresID}}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>Create Score</h2>
+
+<form method="POST" action="/createScore">
+    <label>Game 1:</label>
+    <input type="number" name="game1" required>
+
+    <label>Game 2:</label>
+    <input type="number" name="game2" required>
+
+    <label>Game 3:</label>
+    <input type="number" name="game3" required>
+
+    <label>Scores Date:</label>
+    <input type="date" name="scoresDate" required>
+
+    <label>Bowler ID:</label>
+    <select name="bowlerID" required>
+    {{#each bowlers}}
+    <option value="{{this.bowlerID}}">
+    {{this.bowlerID}} - {{this.firstName}} {{this.lastName}}
+    </option>
+    {{/each}}
+    </select>
+
+    <label>Team ID:</label>
+    <select name="teamID" required>
+    {{#each teams}}
+    <option value="{{this.teamID}}">
+    {{this.teamID}} - {{this.teamName}}
+    </option>
+    {{/each}}
+    </select>
+
+    <button type="submit">Create</button>
+</form>
+
+<h2>Update Score</h2>
+
+<form method="POST" action="/updateScore">
+
+    <label>Select Score:</label>
+    <select name="scoresID" required>
+        {{#each scores}}
+            <option value="{{this.scoresID}}">
+                ID {{this.scoresID}} - {{this.scoresDate}}
+            </option>
+        {{/each}}
+    </select>
+
+    <label>Game 1:</label>
+    <input type="number" name="game1" required>
+
+    <label>Game 2:</label>
+    <input type="number" name="game2" required>
+
+    <label>Game 3:</label>
+    <input type="number" name="game3" required>
+
+    <label>Scores Date:</label>
+    <input type="date" name="scoresDate" required>
+
+    <label>Bowler ID:</label>
+    <select name="bowlerID" required>
+    {{#each bowlers}}
+    <option value="{{this.bowlerID}}">
+    {{this.bowlerID}} - {{this.firstName}} {{this.lastName}}
+    </option>
+    {{/each}}
+    </select>
+
+    <label>Team ID:</label>
+    <select name="teamID" required>
+    {{#each teams}}
+    <option value="{{this.teamID}}">
+    {{this.teamID}} - {{this.teamName}}
+    </option>
+    {{/each}}
+    </select>
+
+    <button type="submit">Update</button>
+
+</form>

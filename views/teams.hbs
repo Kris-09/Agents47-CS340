@@ -1,0 +1,54 @@
+<h1>Teams</h1>
+<p>View existing teams and create new ones.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Team ID</th>
+            <th>Team Name</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each teams}}
+        <tr>
+            <td>{{this.teamID}}</td>
+            <td>{{this.teamName}}</td>
+            <td>
+                <form method="POST" action="/deleteTeam">
+                    <input type="hidden" name="teamID" value="{{this.teamID}}" />
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>Create a Team</h2>
+
+<form method="POST" action="/createTeam">
+    <label>Team Name:</label>
+    <input type="text" name="teamName" required />
+    <button type="submit">Create</button>
+</form>
+
+<h2>Update a Team</h2>
+
+<form method="POST" action="/updateTeam">
+
+    <label>Select Team:</label>
+    <select name="teamID" required>
+        {{#each teams}}
+            <option value="{{this.teamID}}">
+                {{this.teamID}} - {{this.teamName}}
+            </option>
+        {{/each}}
+    </select>
+
+    <label>New Team Name:</label>
+    <input type="text" name="teamName" required>
+
+    <button type="submit">Update</button>
+
+</form>
