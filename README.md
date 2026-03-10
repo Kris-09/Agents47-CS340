@@ -75,5 +75,6 @@ This repository serves as a **collaboration tool for our project group**, allowi
 ## Authors
 
 CS340 Project Team – *Agents47*
-Balakrishna Thirumavalavan
-Juan Gregorio
+
+- Balakrishna Thirumavalavan  
+- Juan Gregorio
